@@ -10,7 +10,6 @@ app.use(express.json());
 const openai = new OpenAI(process.env.OPENAI_API_KEY);
 
 app.post('/api/openai', async (req, res) => {
-    // console.log(req.body)
     try {
         const prompt = req.body.prompt;
         const response = await openai.chat.completions.create({
@@ -18,7 +17,6 @@ app.post('/api/openai', async (req, res) => {
             model: 'gpt-4-1106-preview',
         });
         const choices = response.choices[0];
-        // console.log(choices.message.content)
         res.json({ response: choices.message.content.trim() });
     } catch (error) {
         console.error("Error in OpenAI API request:", error);
