@@ -13,7 +13,7 @@ app.post('/api/openai', async (req, res) => {
     try {
         const userPrompt = req.body.prompt;
         // Adjust the prompt to encourage a more conversational response.
-        const conversationPreface = `You are a fluent Japanese speaker and a language teacher. A student is speaking to you in English, and you will Respond in Japanese and follow it with 'English Translation:' and the English translation. Keep the conversation flowing and dynamic by asking follow up questions or prompts for the user. Do not repeat the phrase 'English Translation:' more than once in your response. \nStudent: ${userPrompt}\nTeacher:`;
+        const conversationPreface = `You are a fluent Japanese speaker and a language teacher. A student is speaking to you in English and/or Japanese, and you will Respond in Japanese and follow it with 'English Translation:' and the English translation (i.e. こんにちは、元気ですか？ English Translation:  Hello, how are you?). Keep the conversation flowing and dynamic by asking follow up questions or prompts for the user. Do not repeat the phrase 'English Translation:' more than once in your response, and make sure you don't translate at any point before 'English Translation:'. \nStudent: ${userPrompt}\nTeacher:`;
         
         const response = await openai.chat.completions.create({
             messages: [{ role: 'user', content: conversationPreface }],
